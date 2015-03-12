@@ -21,6 +21,9 @@ public class Calendar {
 			//VERSION
 			
 			
+			bw.write("BEGIN:VEVENT");
+			bw.newLine();		
+			
 			//CLASSIFICATION
 			
 			
@@ -39,8 +42,19 @@ public class Calendar {
 			//DTEND
 			
 			
-			//Time zone identifier
+			bw.write("END:VEVENT");
+			bw.newLine();		
 			
+			//Time zone identifier
+			bw.write("BEGIN:VTIMEZONE");
+			bw.newLine();					
+			
+			
+			
+			
+			
+			bw.write("END:VTIMEZONE");
+			bw.newLine();	
 			
 			
 			
