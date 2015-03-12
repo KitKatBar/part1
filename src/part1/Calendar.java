@@ -19,16 +19,22 @@ public class Calendar {
 			bw.newLine();
 
 			//VERSION
+			bw.write("VERSION:2.0");
+			bw.newLine();
 			
-			
+			//create new event
 			bw.write("BEGIN:VEVENT");
 			bw.newLine();		
 			
 			//CLASSIFICATION
 			
+			bw.write("CLASSIFICATION:");			
+			bw.newLine();
 			
 			//LOCATION
-			
+	
+			bw.write("LOCATION:");			
+			bw.newLine();
 			
 			//PRIORITY
 			
@@ -49,7 +55,7 @@ public class Calendar {
 			bw.write("BEGIN:VTIMEZONE");
 			bw.newLine();					
 			
-			
+		
 			
 			
 			
