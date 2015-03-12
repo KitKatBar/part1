@@ -3,7 +3,7 @@ package part1;
 import java.io.*;
 import java.util.*;
 
-public class Calendar {
+public class GenerateICS {
 
 	public static void main(String[] args) {
 		
