@@ -1,9 +1,8 @@
-package part1;
 
 import java.io.*;
 import java.util.*;
 
-public class Calendar {
+public class CalendarICS {
 
 	public static void main(String[] args) {
 		
@@ -57,8 +56,7 @@ public class Calendar {
 			bw.newLine();					
 			
 			Calendar calendar = Calendar.getInstance();
-			TimeZone timeZone = calendar.getTimeZone();
-			
+
 			
 			
 			bw.write("END:VTIMEZONE");
