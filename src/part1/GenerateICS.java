@@ -1,6 +1,5 @@
 package part1;
 
-
 import java.io.*;
 import java.util.*;
 
@@ -10,8 +9,7 @@ public class GenerateICS {
 
 	public static void main(String[] args) {
 		
-		try{
-			
+		try{		
 			//create blank ics file
 			File file = new File("studyfinal.ics");
 			
@@ -19,7 +17,6 @@ public class GenerateICS {
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			//begin calendar
-			System.out.print("");
 			bw.write("BEGIN:VCALENDAR");
 			bw.newLine();
 
@@ -34,13 +31,13 @@ public class GenerateICS {
 			//SUMMARY
 			bw.write("SUMMARY:"+getSummary());
 			bw.newLine();	
-			
-			//CLASSIFICATION	
-			bw.write("CLASSIFICATION:");			
-			bw.newLine();
-			
+		
 			//LOCATION
 			bw.write("LOCATION:"+getLocation());
+			bw.newLine();
+			
+			//CLASSIFICATION	
+			bw.write("CLASSIFICATION:"+getClassification());			
 			bw.newLine();
 	
 			//PRIORITY
@@ -48,10 +45,12 @@ public class GenerateICS {
 			bw.newLine();
 			
 			//DTSTART
-			
+			bw.write("DTSTART:");
+			bw.newLine();	
 			
 			//DTEND
-			
+			bw.write("DTEND:");
+			bw.newLine();	
 			
 			bw.write("END:VEVENT");
 			bw.newLine();		
@@ -66,15 +65,12 @@ public class GenerateICS {
 			bw.write("END:VTIMEZONE");
 			bw.newLine();	
 			
-			
 			bw.write("END:VCALENDAR");
 			bw.close();
 			  
 		}catch(IOException e){
 			System.out.println(e);
-		}
-		
-		
+		}				
 	}
 	
 	public static String getSummary() {
@@ -111,21 +107,40 @@ public class GenerateICS {
 					
 					priority = in.nextInt();
 					
-					
 					if(priority > 0 && priority < 10){ //if it is between 1-9, return
 						return priority;
 					}
 					else{
 						System.out.println("Please enter a number from 1 to 9.");
 					}
-				}
-				
+				}			
 			}
 			else{ //if user inputs something other than y/n
 				System.out.println("Please enter \"y\" or \"n\".");
 			}
 		}
 
+	}//end of getPriority
+	
+	public static String getClassification(){
+		
+		while(true){
+			System.out.println("Is the event (1)public, (2)private, or (3)confidential?: ");
+			System.out.print("Enter number: ");
+			int input = Integer.parseInt(in.nextLine());
+			
+			if(input < 1 || input > 3){ //if the number is not 1,2,3
+				System.out.println("Please enter a number from 1 to 3.");
+			}
+			else{
+				switch(input){
+					case 1: return "PUBLIC";
+					case 2: return "PRIVATE";
+					case 3: return "CONFIDENTIAL";
+				}
+			}
+		}
+		
 	}
 	
 }
