@@ -44,13 +44,26 @@ public class GenerateICS {
 			bw.write("PRIORITY:"+getPriority());
 			bw.newLine();
 			
-			//DTSTART
-			bw.write("DTSTART:");
-			bw.newLine();	
+			String start;
+			String end;
 			
-			//DTEND
-			bw.write("DTEND:");
+			do{
+				//DTSTART
+				System.out.println("Enter START date & time of the event.");
+				start = getDTime();
+					
+				//DTEND
+				System.out.println("Enter END date & time of the event.");
+				end = getDTime();
+			
+			}while(!validateDTEnd(start,end));
+			
+			bw.write("DTSTART:"+start);
 			bw.newLine();	
+			bw.write("DTEND:"+ end);
+			bw.newLine();
+			
+			//DTSTART and DTEND check
 			
 			bw.write("END:VEVENT");
 			bw.newLine();		
@@ -76,7 +89,7 @@ public class GenerateICS {
 	public static String getSummary() {
 		String summary;
 		   
-		System.out.print("Please enter the summary for this event: ");
+		System.out.print("Enter the summary for this event: ");
 		summary = in.nextLine();
 		return summary;
 	}
@@ -84,7 +97,7 @@ public class GenerateICS {
 	public static String getLocation() {
 		String location;
 
-		System.out.print("Please enter the location for this event: ");
+		System.out.print("Enter the location for this event: ");
 		location = in.nextLine();
 		return location;
 	}
@@ -103,7 +116,7 @@ public class GenerateICS {
 			else if(yesno.equals("y")){ //there is priority
 				
 				while(true){
-					System.out.print("Please enter priority for this event (1 for highest, 9 for lowest): ");
+					System.out.print("Enter priority for this event (1 for highest, 9 for lowest): ");
 					
 					priority = in.nextInt();
 					
@@ -142,5 +155,124 @@ public class GenerateICS {
 		}
 		
 	}
+	
+	private static String getDTime(){
+	    Scanner input = new Scanner(System.in);
+	    String dstart = "";
+	    String dateInput = "";
+	    String timeInput = "";
+	    String hour = "0";
+	    String year = "";
+	    String month = "";
+	    String day = "";
+	    int hh = 0;
+	    String minute = "0";
+	    int mm = 0;
+	    String amOrPm = "";
+	    
+	    DateValidator date = new DateValidator();
+	    
+	    //do-while loop to get date portion of DSTART
+	    do{
+	      System.out.print("Enter the date in the format: mm/dd/yyyy (e.g. 03/22/2015) ");
+	      dateInput = input.nextLine();
+	    
+	    if (!date.validate(dateInput))
+	      System.out.println("Oops, that is an incorrect date format, please try again.");
+	    
+	    } while (!date.validate(dateInput));
+	    
+	    //do-while loop to get the time portion of DSTART
+	    do{
+	      
+	      System.out.print("Enter the time in the format: hh:mm (e.g. 02:30, 22:15 ...) ");
+	      timeInput = input.nextLine();
+	      
+	      //break up hour and minute portions to validate input
+	      if (timeInput.length() < 5){
+	        System.out.println("Oops, time format appears incorrect, please try again.");
+	        continue;
+	      }
+	      hour = timeInput.substring(0, 2);
+	      minute = timeInput.substring(3, 5);
+	      hh = Integer.parseInt(hour);
+	      mm = Integer.parseInt(minute);
+	      
+	      if (!(hh > 0 && hh < 25))
+	        System.out.println("Oops, the hour portion appears incorrect, please try again.");
+	      if (!(mm >= 0 && mm <= 60))
+	        System.out.println("Oops, the minute portion appears incorrect, please try again.");
+	      
+	    } while ((!timeInput.matches("\\d\\d:\\d\\d")) || !(hh > 0 && hh < 24) || !(mm >= 0 && mm <= 60));
+
+	    if (hh < 13) {
+	      do{
+	      System.out.print("Is this " + hh + " 'o clock AM or PM? (Please enter AM or PM) ");
+	      amOrPm = input.nextLine();
+	      } while (!amOrPm.equals("AM") && !amOrPm.equals("PM"));
+	    }
+	      
+	    if (amOrPm.equals("AM"))
+	    {
+	      if (hh == 12){
+	        hour = "00";
+	      }
+	    }
+	    else if (amOrPm.equals("PM"))
+	    {
+	      switch (hh){
+	      case 1: hour = "13";
+	          break;
+	      case 2: hour = "14";
+	          break;
+	      case 3: hour = "15";
+	        break;
+	      case 4: hour = "16";
+	        break;
+	      case 5: hour = "17";
+	        break;
+	      case 6: hour = "18";
+	        break;
+	      case 7: hour = "19";
+	        break;
+	      case 8: hour = "20";
+	        break;
+	      case 9: hour = "21";
+	        break;
+	      case 10: hour = "22";
+	        break;
+	      case 11: hour = "23";
+	        break;
+	      case 12: hour = "12";
+	        break;
+	      }
+	    }
+	    //convert to format: yyyymmddThhmmss 20150227T130000
+	    year = dateInput.substring(6);
+	    month = dateInput.substring(0, 2);
+	    day = dateInput.substring(3, 5);
+	    
+	    dstart = (year + month + day + "T" + hour + minute + "00");
+	    
+	    return dstart;
+	  }
+	
+	  private static boolean validateDTEnd(String start, String end){
+		    String pattern = "\\d{8}T\\d{6}";
+		    
+		    if (!start.matches(pattern) || !end.matches(pattern)){
+		      return false;
+		    }
+		    
+		    if (Integer.parseInt(end.substring(0, 8)) > Integer.parseInt(start.substring(0, 8))){
+		      if (Integer.parseInt(end.substring(10)) > Integer.parseInt(start.substring(10))){
+		        return true;
+		      }
+		    }
+		    
+		    return false;
+		  }
+
+
 	
 }
