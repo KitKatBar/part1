@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.*;
 
 public class GenerateICS {
+	
+	static Scanner in = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		
@@ -28,21 +30,21 @@ public class GenerateICS {
 			bw.write("BEGIN:VEVENT");
 			bw.newLine();		
 			
-			//CLASSIFICATION
+			//SUMMARY
+			bw.write("SUMMARY"+getSummary());
+			bw.newLine();	
 			
+			//CLASSIFICATION	
 			bw.write("CLASSIFICATION:");			
 			bw.newLine();
 			
 			//LOCATION
-	
-			bw.write("LOCATION:");			
+			bw.write("LOCATION:"+getLocation());
 			bw.newLine();
-			
+	
 			//PRIORITY
-			
-			
-			//SUMMARY
-			
+						
+
 			
 			//DTSTART
 			
@@ -65,7 +67,6 @@ public class GenerateICS {
 			bw.newLine();	
 			
 			
-			
 			bw.write("END:VCALENDAR");
 			bw.close();
 			  
@@ -75,4 +76,20 @@ public class GenerateICS {
 		
 		
 	}
+	
+	public static String getSummary() {
+		String summary;
+		   
+		System.out.print("Please enter the summary for this event: ");
+		summary = in.nextLine();
+		return summary;
+	}
+	
+	public static String getLocation() {
+		   String location;
+
+		   System.out.print("Please enter the location for this event: ");
+		   location = in.nextLine();
+		   return location;
+		}
 }
