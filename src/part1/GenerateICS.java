@@ -31,7 +31,7 @@ public class GenerateICS {
 			bw.newLine();		
 			
 			//SUMMARY
-			bw.write("SUMMARY"+getSummary());
+			bw.write("SUMMARY:"+getSummary());
 			bw.newLine();	
 			
 			//CLASSIFICATION	
