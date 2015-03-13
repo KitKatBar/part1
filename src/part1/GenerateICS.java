@@ -58,7 +58,7 @@ public class GenerateICS {
 			bw.newLine();					
 			
 			bw.write("TZID:");
-			bw.write(TimeZone.getDefault().getDisplayName());
+			bw.write(TimeZone.getDefault().getID());
 			bw.newLine();
 			
 			bw.write("END:VTIMEZONE");
