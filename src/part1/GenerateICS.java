@@ -46,8 +46,13 @@ public class GenerateICS {
 			
 			String start;
 			String end;
+			boolean tf=true;
 			
 			do{
+				if(!tf){
+					System.out.println("Oops, the end time is earlier than the start time. Try again.");
+				}
+
 				//DTSTART
 				System.out.println("Enter START date & time of the event.");
 				start = getDTime();
@@ -56,7 +61,8 @@ public class GenerateICS {
 				System.out.println("Enter END date & time of the event.");
 				end = getDTime();
 			
-			}while(!validateDTEnd(start,end));
+				tf = validateDTEnd(start,end);
+			}while(!tf); //loop if 
 			
 			bw.write("DTSTART:"+start);
 			bw.newLine();	
