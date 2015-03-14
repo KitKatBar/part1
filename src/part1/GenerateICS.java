@@ -271,7 +271,7 @@ public class GenerateICS {
 		    }
 		    
 		    if (Integer.parseInt(end.substring(0, 8)) >= Integer.parseInt(start.substring(0, 8))){ 
-		      if (Integer.parseInt(end.substring(10)) > Integer.parseInt(start.substring(10))){
+		      if (Integer.parseInt(end.substring(9)) > Integer.parseInt(start.substring(9))){
 		        return true;
 		      }		      
 		    }		    
