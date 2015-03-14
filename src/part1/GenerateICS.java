@@ -275,13 +275,13 @@ public class GenerateICS {
 		        return true;
     
 		    }	
-		    //if date is same, then if the time is later, date is valid
+		    //if date is same, then if the end time is later, date is valid
 		    if (Integer.parseInt(end.substring(0, 8)) == Integer.parseInt(start.substring(0, 8))){ 
 			      if (Integer.parseInt(end.substring(9)) > Integer.parseInt(start.substring(9))){
 			        return true;
 			      }		      
 			}	
-		    //if not, it is unvalid
+		    //if not, it is invalid
 		    return false;
 		  }
 }
