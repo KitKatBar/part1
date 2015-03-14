@@ -263,23 +263,18 @@ public class GenerateICS {
 	    return dstart;
 	  }
 	
+	  //return true if date is valid
 	  private static boolean validateDTEnd(String start, String end){
 		    String pattern = "\\d{8}T\\d{6}";
-		    System.out.println(start.matches(pattern));
-		    if (!start.matches(pattern) || !end.matches(pattern)){
-		    	
+		    if (!start.matches(pattern) || !end.matches(pattern)){		    	
 		      return false;
 		    }
-		    System.out.println(Integer.parseInt(end.substring(0, 8)) > Integer.parseInt(start.substring(0, 8)));
-		    System.out.println(Integer.parseInt(end.substring(10)) > Integer.parseInt(start.substring(10)));
 		    
-		    if (Integer.parseInt(end.substring(0, 8)) >= Integer.parseInt(start.substring(0, 8))){
+		    if (Integer.parseInt(end.substring(0, 8)) >= Integer.parseInt(start.substring(0, 8))){ 
 		      if (Integer.parseInt(end.substring(10)) > Integer.parseInt(start.substring(10))){
 		        return true;
-		      }
-		      
-		    }
-		    
+		      }		      
+		    }		    
 		    return false;
 		  }
 }
